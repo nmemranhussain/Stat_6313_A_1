@@ -27,3 +27,18 @@ The GitHub repository "flixit-data-analysis" houses the R code for performing lo
 **Features Used:** 'Age', 'region'  
 **Target Variable used:** 'Participation' (Partic)
 
+## Model Details
+### Architecture  
+- This model card utilizes linear model such as **'Logistic Regression'**.
+
+### Evaluation Metrics  
+- **McFadden R^2** - Indicates the strength of relationships for logisitic regression model. 
+- **Odds-ratio** - A statistic that quantifies the strength of the association between two events, representing the odds that one event will occur given the occurrence of another event.
+- **Specificity** - The proportion of true negatives correctly identified by the model, indicating its accuracy in identifying non-events.
+- **Sensitivity** - The proportion of true positives correctly identified by the model, reflecting its ability to detect actual events.
+- **Positive Predictive Value (PPV)** - The proportion of positive test results that are true positives, indicating the likelihood that subjects with a positive test truly have the condition.
+- **Negitive Predictive Value (NPV)** - The proportion of negative test results that are true negatives, showing the probability that subjects with a negative test truly don't have the condition.
+- **Accuracy** - The proportion of true results (both true positives and true negatives) in the population, measuring the overall correctness of the model.
+- **ROC curve** - A graphical plot that illustrates the diagnostic ability of a binary classifier system as its discrimination threshold is varied, used to select possibly optimal models.
+- **Hoslem Good fit test** -  A statistical test for goodness of fit for logistic regression models, assessing whether the observed event rates match expected event rates in subgroups of the model population.
+  
