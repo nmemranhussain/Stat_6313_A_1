@@ -1,0 +1,344 @@
+> # Loading the libraries
+> library(dplyr)
+> library(pscl)
+> library(pROC)
+> library(ResourceSelection)
+> 
+> # Get the version of dplyr
+> dplyr_version <- packageVersion("dplyr")
+> print(paste("dplyr version:", dplyr_version))
+[1] "dplyr version: 1.1.4"
+> 
+> # Get the version of pscl
+> pscl_version <- packageVersion("pscl")
+> print(paste("pscl version:", pscl_version))
+[1] "pscl version: 1.5.9"
+> 
+> # Get the version of pROC
+> pROC_version <- packageVersion("pROC")
+> print(paste("pROC version:", pROC_version))
+[1] "pROC version: 1.18.5"
+> 
+> # Get the version of ResourceSelection
+> ResourceSelection_version <- packageVersion("ResourceSelection")
+> print(paste("ResourceSelection version:", ResourceSelection_version))
+[1] "ResourceSelection version: 0.3.6"
+> 
+> 
+> # Loading dataset and visualization of descriptive statistics of dependent and independent variables
+> flixit_data_25 <- read.table("FlixIt_2025.txt", header=TRUE)
+> names(flixit_data_25) <- c("Age", "Region", "Partic")
+> summary(flixit_data_25)
+      Age           Region              Partic     
+ Min.   :20.00   Length:200         Min.   :0.000  
+ 1st Qu.:36.00   Class :character   1st Qu.:0.000  
+ Median :40.00   Mode  :character   Median :0.000  
+ Mean   :40.65                      Mean   :0.255  
+ 3rd Qu.:46.00                      3rd Qu.:1.000  
+ Max.   :64.00                      Max.   :1.000  
+> 
+> # Assigning Stevens' levels of typology, only 'Partic' is categorical data here
+> flixit_data_Patric <- as.factor(flixit_data_25$Partic)
+> flixit_data_Age <- as.numeric(flixit_data_25$Age)
+> 
+> # Logistic regression model between 'Participation' and 'Age'
+> partic_to_age_logit <- glm(Partic~Age, data=flixit_data_25, family = binomial(link = "logit"))
+> summary(partic_to_age_logit)
+
+Call:
+glm(formula = Partic ~ Age, family = binomial(link = "logit"), 
+    data = flixit_data_25)
+
+Coefficients:
+             Estimate Std. Error z value Pr(>|z|)    
+(Intercept) -12.96833    1.90753  -6.799 1.06e-11 ***
+Age           0.27695    0.04277   6.475 9.47e-11 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 227.10  on 199  degrees of freedom
+Residual deviance: 151.34  on 198  degrees of freedom
+AIC: 155.34
+
+Number of Fisher Scoring iterations: 5
+
+> 
+> # Calculating McFadden's R^2
+> pR2(partic_to_age_logit)
+fitting null model for pseudo-r2
+         llh      llhNull           G2     McFadden         r2ML         r2CU 
+ -75.6675683 -113.5523665   75.7695964    0.3336328    0.3153503    0.4646072 
+> 
+> # Calculating odds-ratio
+> expo_slope <- exp(0.27695)
+> expo_slope
+[1] 1.3191
+> odds_ratio <- (expo_slope-1)*100
+> odds_ratio
+[1] 31.91004
+> 
+> # Confusion Matrix 
+> flixit_data_25 ["PredProb"] <- predict(partic_to_age_logit, list (Age=flixit_data$Age), type = "response")
+> flixit_data_25 ["PredProb"]
+       PredProb
+1   0.991478141
+2   0.027868853
+3   0.047512773
+4   0.061738169
+5   0.131213421
+6   0.807390874
+7   0.131213421
+8   0.036437827
+9   0.036437827
+10  0.166128062
+11  0.007126817
+12  0.376245477
+13  0.009379670
+14  0.001794029
+15  0.047512773
+16  0.016208409
+17  0.047512773
+18  0.376245477
+19  0.208107736
+20  0.443106553
+21  0.985264629
+22  0.021270535
+23  0.061738169
+24  0.376245477
+25  0.208107736
+26  0.208107736
+27  0.047512773
+28  0.061738169
+29  0.027868853
+30  0.131213421
+31  0.580624911
+32  0.706665147
+33  0.376245477
+34  0.016208409
+35  0.443106553
+36  0.036437827
+37  0.580624911
+38  0.646180203
+39  0.257420692
+40  0.061738169
+41  0.208107736
+42  0.036437827
+43  0.102732659
+44  0.061738169
+45  0.313788531
+46  0.166128062
+47  0.016208409
+48  0.580624911
+49  0.021270535
+50  0.061738169
+51  0.208107736
+52  0.706665147
+53  0.512094588
+54  0.257420692
+55  0.512094588
+56  0.512094588
+57  0.166128062
+58  0.079865548
+59  0.047512773
+60  0.036437827
+61  0.443106553
+62  0.047512773
+63  0.166128062
+64  0.047512773
+65  0.061738169
+66  0.131213421
+67  0.257420692
+68  0.646180203
+69  0.027868853
+70  0.012335822
+71  0.512094588
+72  0.846848797
+73  0.208107736
+74  0.016208409
+75  0.047512773
+76  0.102732659
+77  0.257420692
+78  0.208107736
+79  0.313788531
+80  0.208107736
+81  0.036437827
+82  0.079865548
+83  0.061738169
+84  0.047512773
+85  0.879430471
+86  0.512094588
+87  0.257420692
+88  0.580624911
+89  0.027868853
+90  0.003117528
+91  0.001360629
+92  0.036437827
+93  0.879430471
+94  0.257420692
+95  0.706665147
+96  0.036437827
+97  0.027868853
+98  0.846848797
+99  0.047512773
+100 0.760640380
+101 0.016208409
+102 0.166128062
+103 0.257420692
+104 0.580624911
+105 0.443106553
+106 0.443106553
+107 0.208107736
+108 0.376245477
+109 0.079865548
+110 0.047512773
+111 0.012335822
+112 0.443106553
+113 0.047512773
+114 0.003117528
+115 0.012335822
+116 0.706665147
+117 0.036437827
+118 0.102732659
+119 0.079865548
+120 0.646180203
+121 0.166128062
+122 0.061738169
+123 0.102732659
+124 0.000593250
+125 0.131213421
+126 0.166128062
+127 0.956679966
+128 0.131213421
+129 0.443106553
+130 0.079865548
+131 0.166128062
+132 0.376245477
+133 0.706665147
+134 0.208107736
+135 0.027868853
+136 0.580624911
+137 0.079865548
+138 0.131213421
+139 0.313788531
+140 0.027868853
+141 0.047512773
+142 0.166128062
+143 0.021270535
+144 0.376245477
+145 0.131213421
+146 0.646180203
+147 0.257420692
+148 0.706665147
+149 0.102732659
+150 0.846848797
+151 0.102732659
+152 0.646180203
+153 0.012335822
+154 0.512094588
+155 0.376245477
+156 0.443106553
+157 0.061738169
+158 0.079865548
+159 0.512094588
+160 0.079865548
+161 0.102732659
+162 0.846848797
+163 0.047512773
+164 0.706665147
+165 0.512094588
+166 0.102732659
+167 0.036437827
+168 0.512094588
+169 0.102732659
+170 0.007126817
+171 0.313788531
+172 0.443106553
+173 0.061738169
+174 0.131213421
+175 0.646180203
+176 0.079865548
+177 0.003117528
+178 0.009379670
+179 0.846848797
+180 0.580624911
+181 0.706665147
+182 0.061738169
+183 0.376245477
+184 0.007126817
+185 0.047512773
+186 0.313788531
+187 0.016208409
+188 0.027868853
+189 0.443106553
+190 0.047512773
+191 0.166128062
+192 0.061738169
+193 0.131213421
+194 0.079865548
+195 0.012335822
+196 0.807390874
+197 0.016208409
+198 0.646180203
+199 0.102732659
+200 0.079865548
+> cm <- table ((flixit_data_25$PredProb > 0.5) + 0, flixit_data_25$Partic)
+> sensitivity <- cm[2,2]/(cm[1,2]+cm[2,2])
+> sensitivity
+[1] 0.5686275
+> specificity<- cm[1,1]/(cm[1,1]+cm[2,1])
+> specificity
+[1] 0.8993289
+> positive_predictive_value <- cm[2,2]/(cm[2,1]+cm[2,2])
+> positive_predictive_value
+[1] 0.6590909
+> negative_predictive_value <- cm[1,1]/(cm[1,1]+cm[1,2])
+> negative_predictive_value
+[1] 0.8589744
+> accuracy <- (cm[1,1]+cm[2,2])/sum(cm)
+> accuracy
+[1] 0.815
+> 
+> # Odds of 30 years old participants
+> logits_30 <- - 12.96833+0.27695*30
+> odds_30 <- exp(logits_30)
+> odds_30
+[1] 0.009468072
+> probability_30 <- odds_30/(1+odds_30)
+> probability_30
+[1] 0.009379268
+> 
+> # Odds of 40 years old participants
+> logits_40 <- - 12.96833+0.27695*40
+> odds_40 <- exp(logits_40)
+> odds_40
+[1] 0.151022
+> 
+> # How much more likely is 40 years old to participates compared to a 30 years old?
+> logit <- predict(partic_to_age_logit, newdata = data.frame(Age = c(40, 30)), type = "link")
+> odds <- exp(logit)
+> odds
+          1           2 
+0.151030672 0.009468481 
+> odds_40_30 <- odds[1]/odds[2]
+> odds_40_30
+       1 
+15.95089 
+> 
+> 
+> # Calculating arew under ROC 
+> ROC.curve <- roc(Partic~Age, data=flixit_data_25)
+Setting levels: control = 0, case = 1
+Setting direction: controls < cases
+> plot(ROC.curve, col = 'red')
+> auc(ROC.curve)
+Area under the curve: 0.8772
+> 
+> # Is logistic curve specifies an 'incorrect' model for this data?
+> hoslem.test(flixit_data_25$Partic, fitted(partic_to_age_logit), g = 10)
+
+	Hosmer and Lemeshow goodness of fit (GOF) test
+
+data:  flixit_data_25$Partic, fitted(partic_to_age_logit)
+X-squared = 12.162, df = 8, p-value = 0.1441
