@@ -17,6 +17,6 @@ The GitHub repository "flixit-data-analysis" houses the R code for performing lo
 ## Training Data
 **Dataset Name:** FlixIt_2025  
 **Number of Samples:** 200  
-**Features Used:** 'Age', 'region'
+**Features Used:** 'Age', 'region'  
 **Target Variable used:** 'Participation' (Partic)
 
