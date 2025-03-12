@@ -42,3 +42,8 @@ The GitHub repository "flixit-data-analysis" houses the R code for performing lo
 - **ROC curve** - A graphical plot that illustrates the diagnostic ability of a binary classifier system as its discrimination threshold is varied, used to select possibly optimal models.
 - **Hoslem Good fit test** -  A statistical test for goodness of fit for logistic regression models, assessing whether the observed event rates match expected event rates in subgroups of the model population.
   
+### Version of the Modeling Software: 
+- **R:** 4.3.2
+- **deplyr:** 1.1.4
+- **heplots:** 1.7.0
+- **agricolae:** 1.3.7
