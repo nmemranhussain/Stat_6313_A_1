@@ -13,3 +13,10 @@ The GitHub repository "flixit-data-analysis" houses the R code for performing lo
 **Purpose:** The model is the application of logistic regression in R, particularly in the context of binary outcome data related to age demographics.  
 **Intended Users:** Data Analysts, Data scientists, machine learning enthusiasts, educators.  
 **Out-of-scope Uses:** The model is not intended for production use in any critical applications or real-time decision-making systems.
+
+## Training Data
+**Dataset Name:** FlixIt_2025  
+**Number of Samples:** 200  
+**Features Used:** 'Age', 'region'
+**Target Variable used:** 'Participation' (Partic)
+
