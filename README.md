@@ -14,8 +14,15 @@ The GitHub repository "flixit-data-analysis" houses the R code for performing lo
 **Intended Users:** Data Analysts, Data scientists, machine learning enthusiasts, educators.  
 **Out-of-scope Uses:** The model is not intended for production use in any critical applications or real-time decision-making systems.
 
-## Training Data
-**Dataset Name:** FlixIt_2025  
+## Data Description
+
+| **Variable Name**       | **Model Role** | **Measurement Level**  | **Description**                                       |
+|-------------------------|----------------|------------------------|-------------------------------------------------------|
+| Age                     | Independent    | Ratio                  | Age score on a scale from 20 to 64.                   | 
+| Region                  | Independent    | Discreet               | Region score on 'North', 'South', 'East' & 'West'     |
+| Participation (Partic)  | Dependent      | Discreet               | For 'Participation' = 1, for 'Non-participation' = 0  |
+
+**Dataset Name:** FlixIt_2025.dat  
 **Number of Samples:** 200  
 **Features Used:** 'Age', 'region'  
 **Target Variable used:** 'Participation' (Partic)
