@@ -5,7 +5,7 @@ The GitHub repository "flixit-data-analysis" houses the R code for performing lo
 ## Basic Information
 **Names:** N M Emran Hussain  
 **Email:** nmemranhussain2023@gmail.com  
-**Date:** January 2025 
+**Date:** January 2025  
 **Model Version:** 1.0.0  
 **License:** [MIT License](LICENSE)
 
