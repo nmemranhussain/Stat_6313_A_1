@@ -44,6 +44,26 @@ The GitHub repository "flixit-data-analysis" houses the R code for performing lo
   
 ### Version of the Modeling Software: 
 - **R:** 4.3.2
-- **deplyr:** 1.1.4
-- **heplots:** 1.7.0
-- **agricolae:** 1.3.7
+- **dplyr:** 1.1.4
+- **pscl:** 1.5.9
+- **pROC:** 1.18.5
+- **ResourceSelection:** 0.3.6
+
+## Quantitative Analysis
+
+### Interpretation 
+
+- **In the population, we can be reasonably certain that Age predicts Participation** because Using the logistic regression model, the p-value is significantly low (9.47e-11), indicating that 'Age' can reliably predict 'Participation'.
+- **The relationship (McFadden’s R²) is 0.3336**, suggesting that the model has limited predictive power as the value is below 0.40.
+- **The odds ratio is associated with Age** is 1.3191. It means the exponential of slope value of 'Age' in logistic regression. This value indicates that for each additional year of 'age', the odds of participating increase by approximately 31.91%.
+- **If we applied this model to 100 people, 82 of them would you expect to be correctly classified** because our Accuracy result of the model is 0.8150 or 81.50%.
+- **If we had 100 people known to be **Participants**, 43 of them would be expected to be incorrectly classified as non-participants by your logistic model** because it is based on the **sensitivity** of the model, which is 56.86%.
+- **If we had 100 people known to be **non-Participants**, 10 of them would you expect to be incorrectly classified as participants by your logistic model** because it is derived from the **specificity** of the model, which is 89.93%.
+- **If the model classifies 100 people as **Participants**, 34 of those people would you expect to be incorrectly classified** because the **positive predictive value (PPV) is 0.6591**, implying 34.09% might be incorrectly classified.
+- **If the model classifies 100 people as **non-Participants**, 14 of those people would you expect to be incorrectly classified** because the **negative predictive value (NPV) is 0.859**, indicating 14.1% might be incorrectly.
+- **The odds that a 30-year-old participates is 0.0095.**
+- **The odds that a 40-year-old participates is 0.1510.**
+- A 40-year-old is approximately **15.95 times more likely** to participate than a 30-year-old.
+- The **probability** that **a 30-year-old participates** is **0.0094.*** using the formula: probability = odds / (1 + odds).
+- **The Area is there under the ROC curve is 0.8772.** This indicates that the model does a good job of discriminating between participants and non-participants.
+- **The Hosmer-Lemeshow goodness of fit test, which has a p-value of 0.1441** means a good fit to the data. This p-value, being above the typical alpha level of 0.05, suggests that there is no significant evidence to reject the model, implying that the logistic regression model is appropriate for these data.
